@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+	<ui:composition template="/frontend-template/main-page.xhtml">
+		<ui:define name="body">
+			<!-- Breadcrumb Begin -->
+		    <div class="breadcrumb-option">
+		        <div class="container">
+		            <div class="row">
+		                <div class="col-lg-12">
+		                    <div class="breadcrumb__links">
+		                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+		                        <i class="fas fa-chevron-right"></i><span>My Order</span>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="container mt-5 #{empty placeOrderBean.orderList? '':'d-none'}">
+		    	<div class="row">
+		    		<div class="offset-3 col-5">
+		    			<div class="card">
+		    				<div class="card-header">
+		    					Order
+		    				</div>
+		    				<div class="card-body">
+		    					<h2 class="text-danger">Your Order is Empty!</h2>
+		    					<div class="cart__btn">
+		                    		<h:link outcome="/index.xhtml">Continue Shopping</h:link>
+		                    	</div>
+		    				</div>
+		    			</div>
+		    		</div>
+		    	</div>
+		    </div>
+		    <section class="shop-cart spad #{not empty placeOrderBean.orderList? '':'d-none'}">
+		        <div class="container">
+		            <div class="row">
+		                <div class="col-lg-12">
+		                    <div class="shop__cart__table">
+		                    	<h:form id="check-out">
+			                    	<h:dataTable  var="order" value="#{placeOrderBean.orderList}" binding="#{b}" 
+			                    	 columnClasses="">
+			                    		<h:column>
+											<f:facet name="header">No.</f:facet>
+											#{b.rowIndex+1}.
+										</h:column>
+										<h:column>
+											<f:facet name="header">Order Id</f:facet>
+											#{order.id}
+										</h:column>
+										<h:column>
+											<f:facet name="header">Order Date</f:facet>
+											#{order.orderDate}
+										</h:column>
+										<h:column>
+											<f:facet name="header">Order Qty</f:facet>
+											#{order.totalQty}
+										</h:column>
+										<h:column>
+											<f:facet name="header">Total Amount</f:facet>
+											MMK #{order.totalAmount}
+										</h:column>
+										<h:column>
+											<f:facet name="header">Status</f:facet>
+												#{order.status}	
+											<h:outputText value="( #{order.receivedDate} )" rendered="#{order.status=='Received'}" />	
+											<h:outputText value="( #{order.delivery.deliveryDate} )" rendered="#{order.status=='Delivered'}" />						
+										</h:column>
+										<h:column>
+											<f:facet name="header">-</f:facet>
+												<h:commandLink action="#{placeOrderBean.orderDetail(order.id)}" value="Detail" styleClass="btn btn-secondary btn-sm" onclick="$('#orderDetail').modal('show');">
+													<f:ajax render="detailOrderModalForm"></f:ajax>
+												</h:commandLink>							
+										</h:column>			                    	
+			                    	</h:dataTable>
+			                    	
+		                    	</h:form>
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="row">
+		                <div class="col-lg-6 col-md-6 col-sm-6">
+		                    <div class="cart__btn">
+		                    	<h:link outcome="/index.xhtml">Continue Shopping</h:link>
+		                        
+		                    </div>
+		                    
+		                </div>
+		            </div>
+		        </div>
+		    </section>
+		    <!-- Shop Cart Section End -->
+		</ui:define>
+		<!-- Order Detail -->
+		<ui:define name="order-detail">
+			 <!-- Product Detail Modal -->
+				<div class="modal fade" id="orderDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				    	<div class="modal-body">
+				    		<h4>Order Details</h4>
+				    		<h:dataTable var="detail" value="#{placeOrderBean.orderDetailList}" binding="#{no}" id="detailOrderModalForm"
+				    		 styleClass="table pt-3 mt-3">
+				    			<h:column>
+				    				<f:facet name="header">No.</f:facet>
+				    				#{no.rowIndex+1}
+				    			</h:column>
+				    			<h:column>
+				    				<f:facet name="header">Item Name</f:facet>
+				    				#{detail.product.name}
+				    			</h:column>
+				    			<h:column>
+				    				<f:facet name="header">Price</f:facet>
+				    				#{detail.product.price}
+				    			</h:column>
+				    			<h:column>
+				    				<f:facet name="header">Qty</f:facet>
+				    				#{detail.subQty}
+				    			</h:column>
+				    		
+				    		</h:dataTable>
+				    		<div class="row pt-4">
+					       		<div class="col-9"></div>
+					       		<div class="col">
+					       			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					       		</div>
+					       	</div>
+				    	</div>
+				    	
+				      
+				    </div>
+				  </div>
+				</div>
+			<!-- Product Section End -->
+		</ui:define>
+	</ui:composition>
+</html>

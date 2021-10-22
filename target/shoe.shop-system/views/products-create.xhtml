@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+<ui:composition template="/template/main-template.xhtml">
+	<ui:define name="title">Product</ui:define>
+	<ui:define name="mainHeader">Product</ui:define>
+	<ui:define name="subHeader">
+		<h:link outcome="/views/products.xhtml">Product</h:link>#{productBean.product.id !=0? '/Edit':'/New'}
+	</ui:define>
+	<ui:define name="addBtn">
+		
+	</ui:define>
+	<ui:define name="main-content">
+		<div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                	#{productBean.product.id !=0? 'Update':'Create'} Product
+                </h6>
+            </div>
+            <div class="card-body">
+               <h:form styleClass="form" enctype="multipart/form-data" id="createProduct">
+               	<h:inputHidden value="#{productBean.product.id}" />
+               	<div class="row">
+               		<div class="col-6">
+               			<div class="form-group">
+               				<label for="">Product Name</label>
+               				<h:inputText value="#{productBean.product.name}" id="name" styleClass="form-control" p:placeholder="Enter product name" validatorMessage="Require product name!">
+               					<f:validateRequired/>
+               				</h:inputText>
+               				<small><h:message for="name" styleClass="text-danger"/></small>
+               			</div>
+               			
+               			<div class="form-group">
+               				<label for="">Category</label>
+               				<h:selectOneMenu value="#{productBean.product.category}" styleClass="form-control">
+               					<f:selectItems value="#{categoryBean.categoryList}" var="c" itemValue="#{c}" itemLabel="#{c.name}"/>
+               					<f:converter binding="#{categoryConverter}"></f:converter>
+               				</h:selectOneMenu>
+               			</div>
+               			<div class="form-group">
+               				<label for="">Brand</label>
+               				<h:selectOneMenu value="#{productBean.product.brand}" styleClass="form-control">
+               					<f:selectItems value="#{brandBean.brandList}" var="b" itemValue="#{b}" itemLabel="#{b.name}"/>
+               					<f:converter binding="#{brandConverter}"></f:converter>
+               				</h:selectOneMenu>
+               			</div>
+               			<div class="form-group">
+               				<h:commandLink action="#{productBean.saveProduct()}" styleClass="btn btn-primary px-4" >
+               					<i class="fas fa-save"></i>Save
+               				</h:commandLink>
+               			</div>
+               			
+               		</div>
+          			<div class="col">
+	          			<div class="form-group">
+	           				<label for="">Price</label>
+	           				<h:inputText id="price" value="#{productBean.product.price}" styleClass="form-control" p:placeholder="Enter product price" validatorMessage="Require Price!" >
+	           					<f:validateRequired/>
+	           				</h:inputText>
+	           				<small><h:message for="price" styleClass="text-danger"/></small>
+	           			</div>
+	           			<div class="form-group">
+               				<label for="">Photo</label>
+               				<h:inputFile id="photo" value="#{productBean.imgPart}" p:type="file" styleClass="form-control" requiredMessage="Required photo">
+               					
+               				</h:inputFile>
+               				
+               				
+               			</div>
+               			<div class="form-group">
+               				<h:graphicImage   library="upload" name="#{productBean.product.photo}" width="100" height="100"/>
+               					
+               			</div>
+               			<div class="form-group">
+               				<label for="">Product Detail</label>
+               				<h:inputTextarea value="#{productBean.product.productDetails}" styleClass="form-control" rows="4"/>
+               			</div>
+          			</div>	
+               	</div>
+               </h:form>
+            </div>
+        </div>
+	</ui:define>
+	
+</ui:composition>
+</html>

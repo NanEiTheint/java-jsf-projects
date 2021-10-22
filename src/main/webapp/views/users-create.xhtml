@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+<ui:composition template="/template/main-template.xhtml">
+	<ui:define name="title">User</ui:define>
+	<ui:define name="mainHeader">User</ui:define>
+	<ui:define name="subHeader">
+		<h:link outcome="/views/users.xhtml">User</h:link>#{userBean.user.email !=null? '/Edit':'/New'}
+	</ui:define>
+	<ui:define name="addBtn">
+		
+	</ui:define>
+	<ui:define name="main-content">
+		<div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                	#{userBean.user.email!=null? 'Update':'Create'} User
+                </h6>
+            </div>
+            <div class="card-body">
+              <h:form id="create" styleClass="form">
+              	<h:inputHidden value="#{userBean.user.id}" />
+              	<div class="row">
+            		<div class="col-6">
+            			<h:panelGroup styleClass="form-group" rendered="#{userBean.user.id==0}">
+            				<label for="">Email</label>
+							<h:inputText value="#{userBean.user.email}" id="email" styleClass="form-control"/>
+							<small><h:message for="email" styleClass="text-danger"/></small>
+            			</h:panelGroup>
+            			<div class="form-group">
+							<label for="">User Name</label>
+							<h:inputText value="#{userBean.user.userName}" id="username" styleClass="form-control" validatorMessage="Require Username">
+								<f:validateRequired/>
+							</h:inputText>
+							<small><h:message for="username" styleClass="text-danger"/></small>
+						</div>
+            			<div class="form-group">
+							<label for="">Phone No.</label>
+							<h:inputText  value="#{userBean.user.phone}" id="phone" styleClass="form-control" validatorMessage="Require phone no.">
+								<f:validateRequired/>
+							</h:inputText>
+							<small><h:message for="phone" styleClass="text-danger"/></small>
+						</div>
+						<div class="form-group">
+							<h:commandButton actionListener="#{userBean.checkEmail()}" action="#{userBean.createUser()}" styleClass="btn btn-primary" value="Save" />
+						</div>
+            		</div>
+            		<div class="col">
+	            		<h:panelGroup styleClass="form-group" rendered="#{userBean.user.id==0}">
+							<h:outputLabel value="Password" />
+							<h:inputSecret  value="#{userBean.user.password}" id="password" styleClass="form-control"/>
+							<small><h:message for="password" styleClass="text-danger"/></small>
+						</h:panelGroup>
+            			
+						<div class="form-group">
+							<label for="">Address</label>
+							<h:inputText  value="#{userBean.user.address}" id="address" styleClass="form-control" validatorMessage="Require address.">
+								<f:validateRequired/>
+							</h:inputText>
+							<small><h:message for="address" styleClass="text-danger"/></small>
+						</div>
+						<h:panelGroup styleClass="form-group" rendered="#{loginBean.loginUser.role=='Admin'}">
+							<label for="">Role</label>
+							<h:selectOneMenu value="#{userBean.user.role}" styleClass="form-control">
+								<f:selectItem  itemLabel="Admin" itemValue="Admin"/>
+								<f:selectItem  itemLabel="Staff" itemValue="Staff"/>
+								<f:selectItem  itemLabel="Customer" itemValue="Customer"/>
+							</h:selectOneMenu>
+						</h:panelGroup>
+						
+            		</div>
+            	</div>
+
+			</h:form>
+            </div>
+        </div>
+	</ui:define>
+	
+</ui:composition>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+<h:head>
+
+	<h:outputStylesheet library="css" name="sb-admin-2.min.css"></h:outputStylesheet>
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/5.15.2/css/all.min-jsf.css"></h:outputStylesheet>
+	<h:outputStylesheet library="vendor"
+		name="fontawesome-free/css/all.min.css"></h:outputStylesheet>
+	<!-- add new css -->
+	<ui:insert name="css"></ui:insert>
+	<title>Shop| <ui:insert name="title">Order List</ui:insert>
+	</title>
+</h:head>
+
+<body id="page-top">
+
+	<!-- Page Wrapper -->
+	<div id="wrapper">
+		<!-- Sidebar -->
+		<ui:include src="/template/sidebar.xhtml" />
+
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
+
+			<!-- Main Content -->
+			<div id="content">
+
+				<!-- Topbar -->
+				<ui:include src="/template/topbar.xhtml" />
+
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
+
+					<!-- Page Heading -->
+					<div
+						class="d-sm-flex align-items-center justify-content-between mb-4">
+						<h4 class="mb-0 text-gray-800">
+							<ui:insert name="subHeader">Order</ui:insert>
+						</h4>
+						<ui:insert name="addBtn">
+							<a href="#"
+								class="d-none d-sm-inline-block btn-primary shadow-sm"><i
+								class="fas fa-download fa-sm text-white-50"></i> Generate Report
+							</a>
+						</ui:insert>
+
+					</div>
+					<!-- Data Table -->
+					<ui:insert name="main-content">
+						
+					</ui:insert>
+
+
+				</div>
+				<!-- /.container-fluid -->
+
+			</div>
+			<!-- End of Main Content -->
+
+			<!-- Footer -->
+			<footer class="sticky-footer bg-white">
+			<div class="container my-auto">
+				<div class="copyright text-center my-auto">
+					<span>Copyright &copy; Your Website 2021</span>
+				</div>
+			</div>
+			</footer>
+			<!-- End of Footer -->
+
+		</div>
+		<!-- End of Content Wrapper -->
+
+	</div>
+	<!-- End of Page Wrapper -->
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+
+
+	<!-- Bootstrap core JavaScript-->
+	<h:outputScript library="vendor" name="jquery/jquery.min.js"></h:outputScript>
+	<h:outputScript library="vendor"
+		name="jquery-easing/jquery.easing.min.js"></h:outputScript>
+	<h:outputScript library="vendor"
+		name="bootstrap/js/bootstrap.bundle.min.js"></h:outputScript>
+	<h:outputScript library="js" name="sb-admin-2.min.js"></h:outputScript>
+	<h:outputScript library="vendor"
+		name="datatables/jquery.dataTables.min.js"></h:outputScript>
+	<!-- add new js -->
+	<ui:insert name="js"></ui:insert>
+</body>
+</html>

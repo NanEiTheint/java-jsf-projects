@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+	<h:head>
+		<h:outputStylesheet library="frontend" name="css/all.min.css"/>
+		<h:outputStylesheet library="frontend" name="css/bootstrap.min.css"/>
+		<h:outputStylesheet library="frontend" name="css/elegant-icons.css"/>
+		<h:outputStylesheet library="frontend" name="css/jquery-ui.min.css"/>
+		<h:outputStylesheet library="frontend" name="css/magnific-popup.css"/>
+		<h:outputStylesheet library="frontend" name="css/owl.carousel.min.css"/>
+		<h:outputStylesheet library="frontend" name="css/slicknav.min.css"/>
+		<h:outputStylesheet library="frontend" name="css/style.css"/>
+		<h:outputStylesheet library="webjars" name="font-awesome/5.15.2/css/all.min-jsf.css"></h:outputStylesheet>
+		
+		<!-- add new css -->
+		<title>Shop| <ui:insert name="title">Home Page</ui:insert>
+		</title>
+		<style>
+			.set-bg1 {
+				background-repeat: no-repeat;
+				background-size: cover;
+				background-position: top center;
+			}
+			.header__right__auth ul li{list-style: none;}
+			
+			.header__right__auth ul li:hover .dropdown {
+				top: 70px;
+				opacity: 1;
+				visibility: visible;
+			}
+			.header__right__auth ul li .dropdown {
+				position: absolute;
+				
+				top: 56px;
+				width: 150px;
+				background: #111111;
+				text-align: left;
+				padding: 2px 0;
+				z-index: 9;
+				opacity: 0;
+				visibility: hidden;
+				-webkit-transition: all, 0.3s;
+				-o-transition: all, 0.3s;
+				transition: all, 0.3s;
+			}
+			
+			.header__right__auth ul li .dropdown li {
+				display: block;
+				margin-right: 0;
+			}
+			.header__right__auth ul li .dropdown li a {
+				font-size: 14px;
+				color: #ffffff;
+				font-weight: 400;
+				padding: 8px 20px;
+				text-transform: capitalize;
+			}
+			
+			.header__right__auth ul li .dropdown li a:after {
+				display: none;
+			}
+			.header__right__auth ul li a {
+				font-size: 15px;
+				text-transform: uppercase;
+				color: #111111;
+				font-weight: 500;
+				display: block;
+				padding: 2px 0;
+				position: relative;
+			}
+			
+			
+			.header__right__auth ul li a:after {
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				width: 100%;
+				height: 2px;
+				background: #ca1515;
+				content: "";
+				-webkit-transition: all, 0.5s;
+				-o-transition: all, 0.5s;
+				transition: all, 0.5s;
+				-webkit-transform: scale(0);
+				-ms-transform: scale(0);
+				transform: scale(0);
+			}
+			#body-b{
+					background-image: url("resources/frontend/img/login.jpg");
+					background-repeat: no-repeat;
+					background-size: cover;
+					background-position: top center;
+					 
+					}
+			#login-bg{
+					background-color: #ffffff;
+    				opacity: .7;}
+			
+			#bg-img{background-image: url("resources/frontend/img/register.jpg");}
+			
+		</style>
+		<ui:insert name="css"></ui:insert>
+	</h:head>
+	<body>
+		<!-- Header Section Begin -->
+	    <header class="header  bg-light">
+	        <div class="container-fluid">
+	            <div class="row">
+	                <div class="col-xl-3 col-lg-2">
+	                    <div class="header__logo">
+	                    	<h:link outcome="index.xhtml">
+	                    		<h3>Sun Palace</h3>
+	                    	</h:link>
+	                        
+	                    </div>
+	                </div>
+	                <div class="col-xl-6 col-lg-6">
+	                    <nav class="header__menu navbar-light bg-light">
+	                        <ul>
+	                            <li>
+	                            	<h:link outcome="/index" styleClass="btn">Home</h:link>
+	                            </li>
+	                            <li>
+	                            	<h:link outcome="/frontend/category-view" styleClass="btn">Women's
+                                    	<f:param value="1" name="catId"></f:param>
+                              		</h:link>
+                              	</li>
+	                           <li>
+	                            	<h:link outcome="/frontend/category-view" styleClass="btn">Men's
+                                    	<f:param value="2" name="catId"></f:param>
+                              		</h:link>
+                              	</li>
+                             	 <li>
+                            		<h:link outcome="/frontend/category-view" styleClass="btn">Shop</h:link>
+                             	</li>
+	                            
+	                           <li>
+                            		<h:link outcome="/frontend/brand-view" styleClass="btn">Brand</h:link>
+                             	</li>
+	                            <li><a href="./contact.html">Contact Us</a></li>
+	                        </ul>
+	                    </nav>
+	                </div>
+	                <div class="col-lg-3">
+	                    <div class="header__right">
+	                     	<ul class="header__right__widget pr-2 mr-2"> 
+	                            <li>
+		                            <h:link outcome="/public/cart-page">
+		                            	<i class="fas fa-shopping-cart"></i>
+			                             <div class="tip">
+			                             	<span><h:outputText value="#{cartBean.itemCount}" id="count-product"/></span>
+			                             </div>
+		                            </h:link>
+		                        
+	                            </li>
+	                            <li>
+	                            	<div class="trip">
+	                            		<small><h:outputText value="#{cartBean.order.totalAmount} MMK "  id="allTotal"/></small>
+	                            	</div>
+	                            	
+	                           </li>
+	                        </ul>
+	                        <div class="header__right__auth">
+	                        	<h:link outcome="/login.xhtml" rendered="#{loginBean.loginUser.id==0}">login</h:link>
+	                        	<h:link outcome="/customer-register.xhtml" rendered="#{loginBean.loginUser.id==0}">Register</h:link>
+	                        	<h:form rendered="#{loginBean.loginUser.id!=0}">
+	                        		<ul>
+	                        			<li>
+	                        				<h:link outcome="#" id="user">#{loginBean.loginUser.id!=0? loginBean.loginUser.userName:''}
+			                        			<ul class="dropdown">
+			                        				
+			                        				<li>
+			                        					<a href="#" data-toggle="modal" data-target="#profileDetail"> 
+															<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" ></i> Profile
+														</a> 
+			                        				</li>
+			                        				<li>
+			                        					<h:link outcome="/public/my-order.xhtml"><i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>My Orders</h:link>
+			                        					<h:commandLink action="#{logoutBean.logout()}" id="logout"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Logout</h:commandLink>
+			                        				</li>
+			                        				<li>
+			                        					
+			                        				</li>
+			                        			</ul>
+											</h:link>
+										</li>
+	                        		</ul>
+	                        		
+								</h:form>
+	                           
+	                        </div>
+	                       
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="canvas__open">
+	                <i class="fa fa-bars"></i>
+	            </div>
+	        </div>
+	    </header>
+	    
+	    <!-- Profile Detail Modal -->
+		<div class="modal fade" id="profileDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-body">
+		       	<div class="row">
+	   				<div class="offset-3 col-5">
+	   					<a href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+					<h:graphicImage library="img" name="undraw_profile.svg"/>
+					</a> 
+	     				</div>
+	     			</div>
+	     			<div class="row pt-4">
+	     				<div class="offset-5 col">
+	     					<h6>#{loginBean.loginUser.userName}</h6>
+	     				</div>
+	     			</div>
+	     			<div class="row mt-2">
+	     				<div class="offset-4 col">
+	     					<h6>#{loginBean.loginUser.email}</h6>
+	     				</div>
+	     			</div>
+	     			<div class="row mt-2">
+	     				<div class="offset-4 col">
+	     					<h6>#{loginBean.loginUser.phone}</h6>
+	     				</div>
+	     			</div>
+	     			<div class="row mt-2">
+	     				<div class="offset-5 col">
+	     					<h6>#{loginBean.loginUser.address}</h6>
+	     				</div>
+	     			</div>
+	     			<div class="row mt-2">
+	     				<div class="offset-5 col">
+	     					<h6>#{loginBean.loginUser.role}</h6>
+	     				</div>
+	     			</div>
+		       	<div class="row pt-4">
+		       		<div class="offset-7 col">
+		       			<h:link outcome="/customer-register.xhtml"  styleClass="text-warning mr-4">
+	      					<f:param value="#{loginBean.loginUser.id}" name="id"></f:param>
+	      					<i class="fas fa-edit"></i>Edit
+	      				</h:link>
+		       			<button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+		       		</div>
+		       	</div>
+		      </div>
+		      
+		    </div>
+		  </div>
+		</div>
+	    
+	    <ui:insert name="body"></ui:insert>
+	    <ui:insert name="product-details"></ui:insert>
+	    <ui:insert name="order-detail"></ui:insert>
+		<h:outputScript library="frontend" name="js/jquery-3.3.1.min.js"/>
+		<h:outputScript library="frontend" name="js/bootstrap.min.js"/>
+		<h:outputScript library="frontend" name="js/jquery.magnific-popup.min.js"/>
+		<h:outputScript library="frontend" name="js/jquery-ui.min.js"/>
+		<h:outputScript library="frontend" name="js/mixitup.min.js"/>
+		<h:outputScript library="frontend" name="js/jquery.countdown.min.js"/>
+		<h:outputScript library="frontend" name="js/jquery.slicknav.js"/>
+		<h:outputScript library="frontend" name="js/owl.carousel.min.js"/>
+		<h:outputScript library="frontend" name="js/jquery.nicescroll.min.js"/>
+		<h:outputScript library="frontend" name="js/main.js"/>
+		<ui:insert class="js"></ui:insert>
+		
+		<script type="text/javascript">				
+				$('.set-bg1').each(function () {
+        			var bg = $(this).data('setbg');
+        			$(this).css('background-image', 'url(' + bg + ')');
+        			
+    			});
+				
+    			
+		</script>
+	
+		
+        
+	</body>
+	
+</html>

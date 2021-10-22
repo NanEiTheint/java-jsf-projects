@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+	<ui:composition template="/frontend-template/brand-sidebar.xhtml">
+		<ui:define name="productList">
+			<div class="col-lg-9 col-md-9">
+                <div class="row">
+                	<ui:repeat var="p" value="#{productBean.productList}">
+                     <div class="col-lg-4 col-md-6">
+                         <div class="product__item">
+                             <div class="product__item__pic set-bg1" data-setbg="../resources/upload/#{p.photo}">
+                                 <div class="label new">New</div>
+                                 <ul class="product__hover">
+                                     <li><a href="resources/upload/#{p.photo}" class="image-popup"><span class="fas fa-expand-alt"></span></a></li>
+                                     <li><a href="#"><span class="far fa-heart"></span></a></li>
+                                     <li>
+                                     	<h:form>
+                            		<h:commandLink action="#{cartBean.addToCart(p.id)}">
+		                            	<span class="fas fa-shopping-cart"></span>
+		                            	<f:ajax render="count-product allTotal check-out "></f:ajax>
+		                            </h:commandLink>
+                            	</h:form>
+                                     </li>
+                                 </ul>
+                             </div>
+                             <div class="product__item__text">
+                                 <h6><a href="#">#{p.name}</a></h6>
+                                 <div class="rating">
+                                     <i class="fa fa-star"></i>
+                                     <i class="fa fa-star"></i>
+                                     <i class="fa fa-star"></i>
+                                     <i class="fa fa-star"></i>
+                                     <i class="fa fa-star"></i>
+                                 </div>
+                                 <div class="product__price">#{p.price}</div>
+                             </div>
+                         </div>
+                     </div>
+                </ui:repeat>
+                    <div class="col-lg-12 text-center">
+                        <div class="pagination__option">
+                            <a href="#">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#"><i class="fa fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</ui:define>
+	</ui:composition>
+</html>

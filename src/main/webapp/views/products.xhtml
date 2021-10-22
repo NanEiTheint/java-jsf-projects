@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+<ui:composition template="/template/main-template.xhtml">
+	<ui:define name="title">Product</ui:define>
+	<ui:define name="mainHeader">Product List</ui:define>
+	<ui:define name="subHeader">Product</ui:define>
+	<ui:define name="addBtn">
+		<div class="col-3">
+			<!-- use a tag for change function in js -->
+			<a href="#" id="uploadFile" class=" mr-3 d-sm-inline-block btn btn-md btn-danger shadow-sm">
+				<i class="fas fa-upload fa-sm text-white-50"></i>Upload
+			</a>
+			<h:link outcome="/views/products-create.xhtml" styleClass=" d-sm-inline-block btn btn-md btn-primary shadow-sm">
+				<i class="fas fa-plus fa-sm text-white-50"></i> Add
+			</h:link>
+		</div>
+	</ui:define>
+	<ui:define name="main-content">
+		<div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                	<ui:insert name="dataTable">Product</ui:insert> Table
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                	<h:dataTable var="p" binding="#{b}" value="#{productBean.productList}"  styleClass="table table-bordered" width="100%" cellspacing="0">
+                		<h:column>
+                			<f:facet name="header">No.</f:facet>
+                			#{b.rowIndex+1}
+                		</h:column>
+                		<h:column>
+                			<f:facet name="header">Name</f:facet>
+                			<h:link outcome="/views/products-detail.xhtml">
+                				<f:param name="productId" value="#{p.id}"></f:param>
+                				#{p.name}
+                			</h:link>
+                		</h:column>
+                		<h:column>
+                			<f:facet name="header">Price</f:facet>
+                			#{p.price}
+                		</h:column>
+                		<h:column>
+                			<f:facet name="header">Category</f:facet>
+                			#{p.category.name}
+                		</h:column>
+                		<h:column>
+                			<f:facet name="header">Brand</f:facet>
+                			#{p.brand.name}
+                		</h:column>
+                		<h:column>
+                			<f:facet name="header">Action</f:facet>
+                			<h:form>
+                				<f:facet name="header">Action</f:facet>
+	                			<h:link outcome="products-create.xhtml">
+	                				<f:param name="productId" value="#{p.id}"></f:param>
+	                				<i class="fas fa-edit"></i>Edit |
+	                			</h:link>
+	                			<h:commandLink action="#{productBean.removeProduct(p.id)}" value="Remove" styleClass="text-danger"/>
+                			</h:form>
+                			
+                		</h:column>
+                	</h:dataTable>
+                </div>
+            </div>
+        </div>
+        <h:form enctype="multipart/form-data" styleClass="d-none">
+        	<h:inputFile value="#{productBean.uploadFile}" styleClass="openFile"></h:inputFile>
+        	<h:commandLink action="#{productBean.upload()}" value="Upload" styleClass="upload btn btn-danger" />
+        </h:form>
+	</ui:define>
+	<ui:define name="js">
+		<script type="text/javaScript">
+			$(document).ready(function(){
+				$('#uploadFile').click(function(){
+					$('.openFile').click();
+				$('.openFile').change(function(){
+
+					//alert('ok');
+					$('.upload').click();
+					})
+				})
+
+			})
+		</script>
+	</ui:define>
+</ui:composition>
+</html>

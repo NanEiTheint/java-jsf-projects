@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+<ui:composition template="/template/main-template.xhtml">
+	<ui:define name="title">Product</ui:define>
+	<ui:define name="mainHeader">Product Details</ui:define>
+	<ui:define name="subHeader">
+		<h:link outcome="/views/products.xhtml">Product</h:link>/Details
+	</ui:define>
+	<ui:define name="addBtn">
+	
+	</ui:define>
+	<ui:define name="main-content">
+		<div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                	<ui:insert name="dataTable">Product</ui:insert> Details
+                </h6>
+            </div>
+            <div class="card-body">
+               <div class="row">
+	               	<div class="col-4">
+	               		<h:graphicImage library="upload" name="#{empty productBean.product.photo? 'noImage.jpg':productBean.product.photo}" width="300" height="300" />
+	               	</div>
+	               	<div class="col">
+	               		<h2>#{productBean.product.name}</h2>
+	               		<div class="row pt-2">
+	               			<div class="col-2">Price</div>
+	               			<div class="col">#{productBean.product.price} ks</div>
+	               		</div>
+	               		<div class="row pt-2">
+	               			<div class="col-2">Brand</div>
+	               			<div class="col">#{productBean.product.brand.name}</div>
+	               		</div>
+	               		<div class="row pt-2">
+	               			<div class="col-2">Category</div>
+	               			<div class="col">#{productBean.product.category.name}</div>
+	               		</div>
+	               		<div class="row pt-2">
+	               			<div class="col-2">Created</div>
+	               			<div class="col">#{productBean.product.created_at} | #{productBean.product.created_by.userName}</div>
+	               		</div>
+	               		<div class="row pt-2">
+	               			<div class="col-2">Updated</div>
+	               			<div class="col">#{productBean.product.updated_at} | #{productBean.product.updated_by.userName}</div>
+	               			
+	               		</div>
+	               	</div>
+               </div>
+            </div>
+            <div class="card-footer">
+            	 <!-- description -->
+               <div class="row">
+	               	<div class="col">
+	               		#{productBean.product.productDetails}
+	               	</div>
+               </div>
+            </div>
+        </div>
+	</ui:define>
+	
+</ui:composition>
+</html>

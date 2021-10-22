@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+<ui:composition template="/template/main-template.xhtml">
+	<ui:define name="title">Order</ui:define>
+	<ui:define name="mainHeader">Order List</ui:define>
+	<ui:define name="subHeader">Order</ui:define>
+	<ui:define name="main-content">
+		<div class="card shadow mb-4 #{empty orderBean.orderList ? '':'d-none'}">
+			<div class="card-body">
+				<h3>There is no order.</h3>
+			</div>
+		</div>
+		<div class="card shadow mb-4 #{ empty orderBean.orderList ? 'd-none' : ''}">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                	<ui:insert name="dataTable">Order</ui:insert> Table
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                <h:form>
+                	<h:dataTable id="data-table" var="o" value="#{orderBean.orderList}"  styleClass="table table-bordered" width="100%" cellspacing="0">
+                		<h:column>
+                			<f:facet name="header">Id</f:facet>
+                			#{o.id}
+                		</h:column>
+                		<h:column>
+                			<f:facet name="header">Customer</f:facet>
+                			#{o.customer.userName}
+                		</h:column>
+                		<h:column>
+                			<f:facet name="header">Total Qty</f:facet>
+                			#{o.totalQty}
+                		</h:column>
+                		<h:column>
+                			<f:facet name="header">Total Amount</f:facet>
+                			#{o.totalAmount}
+                		</h:column>
+                		<h:column>
+                			<f:facet name="header">Order Date</f:facet>
+                			#{o.orderDate}
+                		</h:column>
+                		<h:column>
+                			<f:facet name="header">Status</f:facet>
+                			#{o.status}
+                		</h:column>
+                		<h:column>
+                			
+                				<f:facet name="header">Action</f:facet>
+	                			<h:outputText value="-" rendered="#{o.status=='Delivered'}" />
+	                			<h:commandLink action="#{orderBean.changeOrderStatus(o.id,'Received')}" rendered="#{o.status=='Pending'}" value="Receive" styleClass="btn btn-secondary btn-sm">
+	                				<f:ajax render="@form"></f:ajax>
+	                			</h:commandLink>
+	                			<h:commandLink action="#{orderBean.changeOrderStatus(o.id,'Delivered')}" rendered="#{o.status=='Received'}" value="Deliver" styleClass="btn btn-danger btn-sm" >
+	                					<f:ajax render="@form"></f:ajax>
+	                			</h:commandLink>
+	                			
+                			
+                		</h:column>
+                	</h:dataTable>
+            		</h:form>
+                </div>
+            </div>
+        </div>
+	</ui:define>
+</ui:composition>
+</html>

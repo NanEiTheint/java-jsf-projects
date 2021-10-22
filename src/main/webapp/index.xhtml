@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+	<ui:composition template="/frontend-template/main-page.xhtml">
+		<ui:define name="body">
+		
+			<!-- Header Section End -->
+		     <!-- Categories Section Begin -->
+		    <section class="categories">
+		        <div class="container-fluid">
+		            <div class="row">
+		                <div class="col-lg-6 p-0">
+		                	
+			                 <div class="categories__item categories__large__item set-bg1"
+			                    data-setbg="resources/upload/#{categoryBean.categoryList.get(0).photo}">
+			                    <div class="categories__text">
+			                        <h1>Women’s fashion</h1>
+			                        <p>Sitamet, consectetur adipiscing elit, sed do eiusmod tempor incidid-unt labore
+			                        edolore magna aliquapendisse ultrices gravida.</p>
+			                        <h:link outcome="/frontend/category-view" value="Shop Now" data-toggle="collapse" data-target="#collapseOne">
+                            			<f:param value="1" name="catId"></f:param>
+                            		</h:link>
+			                    </div>
+			                </div>
+			            </div>
+			            <div class="col-lg-6">
+			                <div class="row">
+			                	<ui:repeat var="c" value="#{categoryBean.categoryList}">
+				                    <div class="col-lg-6 col-md-6 col-sm-6 p-0 #{c.id!=1 and c.id!=6? '':'d-none'}">
+				                    	<h:link outcome="/frontend/categories-product">
+                                			<f:param value="#{c.id}" name="catId"></f:param>
+                                			 <div class="categories__item set-bg1" data-setbg="resources/upload/#{c.photo}">
+					                            <div class="categories__text">
+					                                <h4>#{c.name}’s fashion</h4>
+					                                <p>#{c.productList.size()} items</p>
+					                                <h:link outcome="/frontend/category-view" value="Shop Now" data-toggle="collapse" data-target="#collapseOne">
+                                    					<f:param value="#{c.id}" name="catId"></f:param>
+                                    				</h:link>
+					                            </div>
+					                        </div>
+                                		</h:link>
+				                      
+				                    </div>
+			                    </ui:repeat>
+			                </div>
+			            </div>													
+		        </div>
+		    </div>
+		</section>
+		<!-- Product Section Begin -->
+		<section class="product spad">
+		    <div class="container">
+		        <div class="row">
+		            <div class="col-lg-4 col-md-4">
+		                <div class="section-title">
+		                    <h4>New product</h4>
+		                </div>
+		            </div>
+		           
+		        </div>
+		        <div class="row property__gallery">
+		        	<ui:repeat var="p" value="#{productBean.productList}">
+		        	 
+			            <div class="col-lg-3 col-md-4 col-sm-6 mix women">
+			                <div class="product__item">
+			                    <div class="product__item__pic set-bg1" data-setbg="resources/upload/#{p.photo}">
+			                        <div class="label new">New</div>
+			                        <ul class="product__hover">
+			                            <li><a href="resources/upload/#{p.photo}" class="image-popup"><span class="fas fa-expand-alt"></span></a></li>
+			                            <li><a href="#"><span class="far fa-heart"></span></a></li>
+			                            <!-- detail icon
+			                            <li>
+			                            	<h:form>
+			                            		<h:commandLink action="#{productBean.detailProduct(p.id)}" onclick="$('#productDetail').modal('show');" >
+					                            	<span class="far fa-heart"></span>
+					                            	<f:ajax render="detailProductModalForm"></f:ajax>
+					                            </h:commandLink>
+			                            	</h:form>
+			                            </li>
+			                             -->
+			                            <li>
+			                            	<h:form>
+			                            		<h:commandLink action="#{cartBean.addToCart(p.id)}">
+					                            	<span class="fas fa-shopping-cart"></span>
+					                            	<f:ajax render="count-product check-out allTotal"></f:ajax>
+					                            </h:commandLink>
+			                            	</h:form>
+				                            
+			                            </li>
+			                           
+			                        </ul>
+			                    </div>
+			                    <div class="product__item__text">
+			                        <h6>
+			                        	<h:form>
+		                            		<h:commandLink action="#{productBean.detailProduct(p.id)}" onclick="$('#productDetail').modal('show');" >
+				                            	#{p.name}
+				                            	<f:ajax render="detailProductModalForm"></f:ajax>
+				                            </h:commandLink>
+		                            	</h:form>
+		                            </h6>
+			                       
+			                        <div class="rating">
+			                            <i class="fa fa-star"></i>
+			                            <i class="fa fa-star"></i>
+			                            <i class="fa fa-star"></i>
+			                            <i class="fa fa-star"></i>
+			                            <i class="fa fa-star"></i>
+			                        </div>
+			                        <div class="product__price">MMK #{p.price}</div>
+			                    </div>
+			                </div>
+			            </div>
+			        </ui:repeat> 
+		          </div>
+		        </div>
+		</section>
+		<!-- Discount Section Begin -->
+		<section class="discount">
+		    <div class="container">
+		        <div class="row" >
+		            <div class="col-lg-4 p-0 offset-1">
+		                <div class="discount__pic">
+		               		<h:graphicImage library="frontend" name="img/women/women8.jpg" width="100" height="75"/>
+		                </div>
+		            </div>
+		            <div class="col-lg-6 p-0">
+		                <div class="discount__text">
+		                    <div class="discount__text__title">
+		                        <span>Discount</span>
+		                        <h2>Summer 2019</h2>
+		                        <h5><span>Sale</span> 50%</h5>
+		                    </div>
+		                    <div class="discount__countdown" id="countdown-time">
+		                        <div class="countdown__item">
+		                            <span>22</span>
+		                            <p>Days</p>
+		                        </div>
+		                        <div class="countdown__item">
+		                            <span>18</span>
+		                            <p>Hour</p>
+		                        </div>
+		                        <div class="countdown__item">
+		                            <span>46</span>
+		                            <p>Min</p>
+		                        </div>
+		                        <div class="countdown__item">
+		                            <span>05</span>
+		                            <p>Sec</p>
+		                        </div>
+		                    </div>
+		                    <a href="#">Shop now</a>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</section>
+		<!-- Discount Section End -->
+		
+		<!-- Footer Section Begin -->
+		<footer class="footer">
+		    <div class="container-fluid">
+		        <div class="row">
+		            <div class="col-lg-12">
+		                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+		                <div class="footer__copyright__text">
+		                    <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This online shopping website is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Nan Ei</a></p>
+		                </div>
+		                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+		            </div>
+		        </div>
+		    </div>
+		</footer>
+</ui:define>
+<!-- Product Detail -->
+<ui:define name="product-details">
+	 <!-- Product Detail Modal -->
+		<div class="modal fade" id="productDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-lg" role="document">
+		    <div class="modal-content">
+		    	<h:form id="detailProductModalForm">
+		    		<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Product Details</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+			      <div class="modal-body">
+			       	<div class="row">
+		               	<div class="col-lg-6">
+		               		<h:graphicImage library="upload" name="#{empty productBean.product.photo? 'noImage.jpg':productBean.product.photo}" width="300" height="300" />
+		               	</div>
+		               	<div class="col-lg">
+		               		<h2>#{productBean.product.name}</h2>
+		               		<div class="row pt-4">
+		               			<div class="col-3">Price</div>
+		               			<div class="col">#{productBean.product.price} MMK</div>
+		               		</div>
+		               		<div class="row pt-2">
+		               			<div class="col-3">Brand</div>
+		               			<div class="col">#{productBean.product.brand.name}</div>
+		               		</div>
+		               		<div class="row pt-2">
+		               			<div class="col-3">Category</div>
+		               			<div class="col">#{productBean.product.category.name}</div>
+		               		</div>
+		               		
+		               	</div>
+	               </div>
+	               <div class="row pt-3">
+		               	<div class="col">
+		               		#{productBean.product.productDetails}
+		               	</div>
+	               </div>
+	               <hr />
+			       	<div class="row pt-4">
+			       		<div class="col-9"></div>
+			       		<div class="col">
+			       			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			       		</div>
+			       	</div>
+			      </div>
+		      </h:form>
+		      
+		    </div>
+		  </div>
+		</div>
+	<!-- Product Section End -->
+
+</ui:define>
+	
+</ui:composition>
+
+</html>

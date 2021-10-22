@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<h:head>
+		<h:outputStylesheet library="css" name="sb-admin-2.min.css"></h:outputStylesheet>
+		<h:outputStylesheet library="webjars"
+			name="font-awesome/5.15.2/css/all.min-jsf.css"></h:outputStylesheet>
+		<h:outputStylesheet library="vendor"
+			name="fontawesome-free/css/all.min.css"></h:outputStylesheet>
+		<title>Unauthorized User</title>
+	</h:head>
+	<body>
+		<div class="container mt-5">
+			<div class="row">
+				<div class="offset-2 col-6">
+					<div class="card-body">
+						<h3>You cann't access this page!</h3>
+						<h:link outcome="/index.xhtml" styleClass="btn btn-primary mt-3" value="Go To Home Page"/>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>

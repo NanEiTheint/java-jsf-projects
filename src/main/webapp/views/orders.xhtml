@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+<ui:composition template="/template/main-template.xhtml">
+	<ui:define name="title">Order</ui:define>
+	<ui:define name="mainHeader">Order List</ui:define>
+	<ui:define name="subHeader">Order</ui:define>
+	<ui:define name="main-content">
+		<div class="card shadow mb-4 #{empty orderBean.orderList ? '':'d-none'}">
+			<div class="card-body">
+				<h3>There is no order.</h3>
+			</div>
+		</div>
+		<div class="card shadow mb-4 #{ empty orderBean.orderList ? 'd-none' : ''}">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                	<ui:insert name="dataTable">Order</ui:insert> Table
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                <h:form>
+                	<h:dataTable binding="#{b}" id="data-table" var="o" value="#{orderBean.orderList}"  styleClass="table table-bordered" width="100%" cellspacing="0">
+                		<h:column>
+                			<f:facet name="header">No.</f:facet>
+                			#{b.rowIndex+1}
+                		</h:column>
+                		<h:column>
+                			<f:facet name="header">Id</f:facet>
+                			<h:commandLink action="#{placeOrderBean.orderDetail(o.id)}"
+                			onclick="$('#detail').modal('show');" >
+                			<h:outputText value="code-#{o.id}" />
+                				<f:ajax render="detailOrderModal"></f:ajax>
+                			</h:commandLink>
+                			
+                		</h:column>
+                		<h:column>
+                			<f:facet name="header">Customer</f:facet>
+                			#{o.customer.userName}
+                		</h:column>
+                		<h:column>
+                			<f:facet name="header">Total Qty</f:facet>
+                			#{o.totalQty}
+                		</h:column>
+                		<h:column>
+                			<f:facet name="header">Total Amount</f:facet>
+                			#{o.totalAmount}
+                		</h:column>
+                		<h:column>
+                			<f:facet name="header">Order Date</f:facet>
+                			#{o.orderDate}
+                		</h:column>
+                		<h:column>
+                			<f:facet name="header">Status</f:facet>
+                			#{o.status}
+                		</h:column>
+                		<h:column>
+                			
+                				<f:facet name="header">Action</f:facet>
+	                			<!-- <h:outputText value="-" rendered="#{o.status=='Delivered'}" /> -->
+	                			<h:commandLink action="#{orderBean.changeOrderStatus(o.id,'Received')}" rendered="#{o.status=='Pending'}" value="Receive" styleClass="btn btn-secondary btn-sm">
+	                				<f:ajax render="@form"></f:ajax>
+	                			</h:commandLink>
+	                			<h:commandLink action="#{orderBean.changeOrderStatus(o.id,'Delivered')}" rendered="#{o.status=='Received'}" value="Deliver" styleClass="btn btn-danger btn-sm" >
+	                					<f:ajax render="@form"></f:ajax>
+	                			</h:commandLink>
+	                			<h:commandLink rendered="#{o.status=='Delivered'}" action="#{placeOrderBean.orderDetail(o.id)}" value="Detail" styleClass="btn btn-primary btn-sm"
+	                			onclick="$('#detail').modal('show');" >
+	                				<f:ajax render="detailOrderModal"></f:ajax>
+	                			</h:commandLink>
+	                			
+                			
+                		</h:column>
+                	</h:dataTable>
+            		</h:form>
+                </div>
+            </div>
+        </div>
+	</ui:define>
+	<!-- Order Detail -->
+	<ui:define name="modal">
+		 <!-- Product Detail Modal -->
+			<div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			    	<div class="modal-body">
+			    		<h4>Order Details</h4>
+			    		<h:dataTable var="detail" value="#{placeOrderBean.orderDetailList}" binding="#{no}" id="detailOrderModal"
+			    		 styleClass="table pt-3 mt-3">
+			    			<h:column>
+			    				<f:facet name="header">No.</f:facet>
+			    				#{no.rowIndex+1}
+			    			</h:column>
+			    			<h:column>
+			    				<f:facet name="header">Item Name</f:facet>
+			    				#{detail.product.name}
+			    			</h:column>
+			    			<h:column>
+			    				<f:facet name="header">Price</f:facet>
+			    				#{detail.product.price}
+			    			</h:column>
+			    			<h:column>
+			    				<f:facet name="header">Qty</f:facet>
+			    				#{detail.subQty}
+			    			</h:column>
+			    		
+			    		</h:dataTable>
+			    		<div class="row pt-4">
+				       		<div class="col-9"></div>
+				       		<div class="col">
+				       			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				       		</div>
+				       	</div>
+			    	</div>
+			    	
+			      
+			    </div>
+			  </div>
+			</div>
+		<!-- Product Section End -->
+</ui:define>
+</ui:composition>
+</html>
